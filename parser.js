@@ -3,6 +3,7 @@
  * newton@nic.br
  */
 
+// Class Token
 var Token = function(lexema){
     this.lexema = lexema;
     this.tipo = null;
@@ -24,6 +25,7 @@ Token.prototype = {
                }
 }
 
+// Class Node
 var Node = function(){
     this.label = null;
 }
@@ -33,6 +35,7 @@ Node.prototype = {
             }
 }
 
+// Class Edge
 var Edge = function(){
     this.source = null;
     this.target = null;
@@ -43,6 +46,7 @@ Edge.prototype = {
                 this.target = to;
             }
 }
+
 
 function lexical(val){
     val = val.trim();
@@ -88,7 +92,6 @@ function makeEdges(tokens){
                 edge = new Edge();
                 edge.create(node_root.lexema, tokens[cursor].lexema);
                 edgeList.push(edge);
-
                 cursor++;
             }while (cursor < tokens.length && tokens[cursor].node === 'adj');
         }
@@ -98,11 +101,10 @@ function makeEdges(tokens){
 }
 
 function parser(action){
-    input = document.getElementById('campo');
+    input = document.getElementById('input');
     output = document.getElementById('output');
 
     var input_val = input.value;
-    
     line_tkns = lexical(input_val);
     tokens = new Array();
     for (line in line_tkns){
@@ -115,14 +117,12 @@ function parser(action){
             tokens.push(token_adj);
         }
     }
-
     nodes = makeNodes(tokens);
     edges = makeEdges(tokens);
     output.innerHTML = '';
     for (edge in edges){
         output.innerHTML += '(' + edges[edge].source + ', ' + edges[edge].target + ') <br />';
     }
-
     if (action === 'create'){
         makeGraph(nodes, edges);
         document.getElementById('ok').onclick = function(){ parser('update'); };
@@ -141,15 +141,12 @@ function updateGraph(graph, nodes, edges){
     for (edge in edges){
         graph.addLink(edges[edge].source, edges[edge].target);
     }
-
 }
 
 function makeGraph(nodes, edges) {
     graph = Viva.Graph.graph();
     var graphics = Viva.Graph.View.svgGraphics(),
         nodeSize = 16;
-
-
 
     graphics.node(function(node){
         var ui = Viva.Graph.svg('g'),
@@ -164,7 +161,7 @@ function makeGraph(nodes, edges) {
                                     .attr('cy', -2)
                                     .attr('r', nodeSize);
 
-        ui.append(nodeCircle);
+    ui.append(nodeCircle);
         ui.append(svgText);
         return ui;
     }).placeNode(function(nodeUI, pos){
@@ -183,6 +180,5 @@ function makeGraph(nodes, edges) {
     }
     for (edge in edges){
         graph.addLink(edges[edge].source, edges[edge].target);
-    }
-   
+    }   
 }
