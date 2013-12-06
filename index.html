@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Visualização de Grafos utilizando VivaGraph.js</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: Sans-serif;
+                font-size: 14px;
+            }
+            fieldset {
+                border: 1px solid #CCC;
+            }
+            textarea {
+                border: 1px solid #ccc;
+                width: 100%;
+                height: 120px;
+                border-radius: 4px;
+            }
+
+            #controls {
+                background: #FFF;
+                position: fixed;
+                top: 1em;
+                right: 1em;
+                width: 280px;
+            }
+
+            #graphContainer {
+                height: 100%;
+            }
+
+            #graphContainer > svg {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="controls">
+            <fieldset>
+                <legend>Visualização de Grafos</legend>
+                <form>
+                    <h2>Lista de Adjagências</h2>
+                    <textarea id="campo">
+A = B, C, D
+B = A, C
+C = A, B
+D = A
+</textarea>
+                    <button onclick="parser('create')" type="button" id="ok">Generate</button>
+                </form>
+            </fieldset>
+            <div id="output">
+            </div>
+        </div>
+        <div id="graphContainer"></div>
+
+        <script src="VivaGraphJS/dist/vivagraph.js"></script>
+        <script src="parser.js"></script>
+
+    </body>
+</html>
